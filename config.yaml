@@ -1,9 +1,10 @@
-# ↓↓↓ 上线后必须改成你的真实地址！本地预览阶段先保持这样也行 ↓↓↓
-baseURL: "https://你的用户名.github.io/"
+# ↓↓↓ 已改为你的真实地址 ↓↓↓
+baseURL: "https://drstone-youqiong.github.io/"
+languageCode: "zh-cn"
 locale: "zh-cn"                # Hugo v0.158+ 用 locale，不加会有 languageCode 弃用警告（仅警告，不影响运行）
 theme: "hugo-theme-stack"
-title: "我的个人网站"          # 网站标题，改成你的
-copyright: "© 2026 你的名字"   # 底部版权
+title: "DrStone 的博客"          # 网站标题
+copyright: "© 2026 DrStone"   # 底部版权
 
 # 分页：每页显示几篇文章
 pagination:
@@ -34,7 +35,7 @@ menu:
   social:                        # 社交链接（显示在个人卡片下）
     - identifier: github
       name: GitHub
-      url: "https://github.com/你的用户名"
+      url: "https://github.com/DrStone-youqiong"
       params:
         icon: brand-github
 
