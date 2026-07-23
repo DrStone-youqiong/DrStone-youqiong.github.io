@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>随笔 on 我的个人网站</title>
+        <link>http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/</link>
+        <description>Recent content in 随笔 on 我的个人网站</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>© 2026 你的名字</copyright>
+        <lastBuildDate>Thu, 23 Jul 2026 16:01:48 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" /><item>
+            <title>我的第一篇文章</title>
+            <link>http://localhost:1313/post/hello-world/</link>
+            <pubDate>Thu, 23 Jul 2026 16:01:48 +0800</pubDate>
+            <guid>http://localhost:1313/post/hello-world/</guid>
+            <description>&lt;p&gt;这是我用 Hugo 搭建的个人网站发布的第一篇文章！&lt;/p&gt;&#xA;&lt;h2 id=&#34;一个小标题&#34;&gt;一个小标题&#xD;&#xA;&lt;/h2&gt;&lt;p&gt;Hello, world. 🎉&lt;/p&gt;&#xA;</description>
+        </item></channel>
+</rss>
