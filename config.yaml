@@ -39,7 +39,11 @@ menu:
       params:
         icon: brand-github
 
-  main: []                       # 主菜单，先留空
+  main:
+    - identifier: quant-resources
+      name: 量化研究资源
+      url: /quant-resources/
+      weight: 1
 
 # 让文章摘要、代码高亮等更好看
 markup:
