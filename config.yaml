@@ -30,6 +30,11 @@ params:
   comments:
     enabled: false
 
+  # 配色方案：默认深色（赛博朋克霓虹基调），保留右上角切换按钮
+  colorScheme:
+    toggle: true
+    default: "dark"
+
 # 顶部/侧边菜单
 menu:
   social:                        # 社交链接（显示在个人卡片下）
@@ -44,6 +49,11 @@ menu:
       name: 量化研究资源
       url: /quant-resources/
       weight: 1
+
+    - identifier: gallery
+      name: 相册
+      url: /gallery/
+      weight: 2
 
 # 让文章摘要、代码高亮等更好看
 markup:

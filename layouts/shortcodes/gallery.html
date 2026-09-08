@@ -1,0 +1,15 @@
+{{/*
+    gallery shortcode：按文件名前缀输出图片网格
+    用法：{{< gallery filter="spacex-" >}}
+*/}}
+{{ $filter := .Get "filter" | default "" }}
+{{ $images := .Page.Resources.Match (printf "%s*" $filter) }}
+{{ with $images }}
+<div class="cyber-gallery">
+    {{ range . }}
+        <figure class="cyber-gallery__item">
+            <img src="{{ .RelPermalink }}" alt="{{ .Name }}" loading="lazy" />
+        </figure>
+    {{ end }}
+</div>
+{{ end }}

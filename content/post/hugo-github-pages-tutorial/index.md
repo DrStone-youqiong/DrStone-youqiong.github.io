@@ -3,6 +3,7 @@ title: 个人博客搭建教程
 date: 2026-09-08
 draft: false
 description: 从 0 到 1 用 Hugo + Stack 主题 + GitHub Pages 搭建免费个人博客的完整记录，Windows 环境全程可复制命令
+image: cover.jpg
 categories:
   - 教程
 tags:

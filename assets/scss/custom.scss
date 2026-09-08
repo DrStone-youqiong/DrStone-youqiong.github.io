@@ -1,0 +1,214 @@
+/* ============================================================
+   Cyber × Sci-Fi × 2D 自定义样式（项目级，覆盖主题默认值）
+   赛博朋克霓虹基调 + 星际科幻氛围 + 相册网格
+   ============================================================ */
+
+:root {
+    --cyber-cyan: #22d3ee;
+    --cyber-magenta: #f472b6;
+    --cyber-purple: #a78bfa;
+    --cyber-neon-border: rgba(34, 211, 238, 0.22);
+}
+
+/* ---------- 深色主题：太空霓虹基调 ---------- */
+:root {
+    &[data-scheme="dark"] {
+        --body-background: #07080f;
+        --card-background: rgba(17, 20, 34, 0.9);
+        --card-text-color-main: rgba(235, 240, 255, 0.92);
+        --card-text-color-secondary: rgba(190, 200, 230, 0.68);
+        --card-text-color-tertiary: rgba(160, 170, 200, 0.5);
+        --accent-color: #22d3ee;
+        --accent-color-darker: #0ea5c9;
+        --accent-color-text: #04121a;
+        --card-separator-color: rgba(120, 140, 200, 0.14);
+        --code-background-color: rgba(8, 12, 24, 0.92);
+        --shadow-l1: 0 0 0 1px rgba(90, 130, 220, 0.08), 0 6px 24px rgba(0, 0, 0, 0.5);
+        --shadow-l2: 0 0 0 1px rgba(90, 130, 220, 0.10), 0 14px 48px rgba(0, 0, 0, 0.55);
+    }
+}
+
+/* ---------- 星云背景（深色） ---------- */
+html[data-scheme="dark"] body {
+    background-image:
+        radial-gradient(ellipse 80% 50% at 15% -10%, rgba(56, 130, 246, 0.14), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 5%, rgba(168, 85, 247, 0.12), transparent),
+        radial-gradient(ellipse 70% 45% at 50% 115%, rgba(34, 211, 238, 0.10), transparent);
+    background-attachment: fixed;
+}
+
+html[data-scheme="dark"] .card-base {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* 卡片悬停：霓虹描边 */
+html[data-scheme="dark"] .card-base {
+    transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+html[data-scheme="dark"] .article-card:hover {
+    box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.35), 0 0 28px rgba(34, 211, 238, 0.12), 0 14px 48px rgba(0, 0, 0, 0.55);
+}
+
+/* ---------- Hero 横幅 ---------- */
+.cyber-hero {
+    position: relative;
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+    aspect-ratio: 21 / 8;
+    margin-bottom: var(--section-separation);
+    border: 1px solid var(--cyber-neon-border);
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(34, 211, 238, 0.12),
+        0 18px 60px rgba(0, 0, 0, 0.5);
+    isolation: isolate;
+}
+
+.cyber-hero__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1.4s ease, transform 8s linear;
+
+    &.is-active {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.cyber-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(7, 8, 15, 0.05) 30%, rgba(7, 8, 15, 0.78) 100%);
+}
+
+.cyber-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(34, 211, 238, 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34, 211, 238, 0.09) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: linear-gradient(180deg, transparent 25%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 25%, #000 100%);
+    pointer-events: none;
+}
+
+.cyber-hero__content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 24px 34px;
+}
+
+.cyber-hero__kicker {
+    margin: 0 0 8px;
+    font-family: var(--code-font-family);
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: var(--cyber-cyan);
+    text-shadow: 0 0 14px rgba(34, 211, 238, 0.8);
+}
+
+.cyber-hero__title {
+    margin: 0 0 8px;
+    font-size: 4rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-shadow:
+        0 0 22px rgba(94, 234, 212, 0.55),
+        0 2px 10px rgba(0, 0, 0, 0.65);
+}
+
+.cyber-hero__subtitle {
+    margin: 0 0 12px;
+    font-size: 1.7rem;
+    color: rgba(230, 238, 255, 0.88);
+}
+
+.cyber-hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cyber-chip {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 1.25rem;
+    color: rgba(235, 245, 255, 0.92);
+    background: rgba(10, 16, 30, 0.55);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    &--pink {
+        border-color: rgba(244, 114, 182, 0.45);
+        box-shadow: 0 0 12px rgba(244, 114, 182, 0.18);
+    }
+}
+
+@media (max-width: 768px) {
+    .cyber-hero {
+        aspect-ratio: 16 / 10;
+    }
+
+    .cyber-hero__content {
+        padding: 16px 20px;
+    }
+
+    .cyber-hero__title {
+        font-size: 2.6rem;
+    }
+
+    .cyber-hero__subtitle {
+        font-size: 1.4rem;
+    }
+
+    .cyber-hero__kicker {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+    }
+}
+
+/* ---------- 相册网格 ---------- */
+.cyber-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+
+    &__item {
+        margin: 0;
+        border-radius: var(--card-border-radius);
+        overflow: hidden;
+        border: 1px solid rgba(120, 140, 200, 0.16);
+        background: rgba(255, 255, 255, 0.02);
+
+        img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        &:hover img {
+            transform: scale(1.06);
+        }
+    }
+}
+
+/* ---------- 文章标签霓虹化（深色） ---------- */
+html[data-scheme="dark"] {
+    .article-card .article-title a:hover {
+        color: var(--cyber-cyan);
+        text-shadow: 0 0 16px rgba(34, 211, 238, 0.45);
+    }
+}
