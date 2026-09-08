@@ -1,4 +1,5 @@
 ---
+image: cover.jpg
 title: "普适性项目"
 date: 2026-07-24T10:30:00+08:00
 description: "跨平台、跨语言的通用量化研究与交易工具"
