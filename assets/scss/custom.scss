@@ -1,14 +1,12 @@
 /* ============================================================
-   Fuwari 风格布局复刻 × 赛博科幻氛围(顶部横向导航栏版)
-   复刻 bysansheng.cn 的布局结构:顶部横向导航 + 居中单列内容
-   设计令牌参照 Fuwari 开源主题(MIT, saicaca/fuwari):
+   Fuwari 风格布局复刻 × 赛博科幻氛围
+   设计变量参照 Fuwari 开源主题（MIT, saicaca/fuwari）:
    --radius-large: 1rem; oklch 色彩体系, 默认色相 250
    ============================================================ */
 
 :root {
     /* Fuwari 设计令牌 */
     --radius-large: 1rem;
-    --radius-pill: 999px;
     --primary: oklch(0.70 0.14 250);
     --page-bg: oklch(0.95 0.01 250);
     --deep-text: oklch(0.25 0.02 250);
@@ -21,11 +19,6 @@
     --accent-color-text: #ffffff;
     --cyber-cyan: oklch(0.75 0.12 220);
     --cyber-magenta: oklch(0.70 0.16 340);
-
-    /* 顶部栏专用令牌 */
-    --topbar-height: 64px;
-    --topbar-blur: saturate(180%) blur(14px);
-    --content-max-width: 820px;
 }
 
 html[data-scheme="dark"] {
@@ -44,7 +37,7 @@ html[data-scheme="dark"] {
     --body-background: var(--page-bg);
 }
 
-/* ---------- 页面背景:Fuwari 平涂 + 轻微星云氛围 ---------- */
+/* ---------- 页面背景：Fuwari 平涂 + 轻微星云氛围 ---------- */
 html[data-scheme="dark"] body {
     background-image:
         radial-gradient(ellipse 70% 45% at 15% -8%, oklch(0.35 0.06 250 / 0.35), transparent),
@@ -52,326 +45,134 @@ html[data-scheme="dark"] body {
     background-attachment: fixed;
 }
 
-/* ---------- 卡片阴影:Fuwari 轻投影 ---------- */
+/* ---------- 左侧个人卡片：Fuwari 核心结构 ---------- */
+.left-sidebar {
+    background: var(--card-background);
+    border-radius: var(--radius-large);
+    overflow: hidden;
+    box-shadow: var(--shadow-l2);
+    padding-top: 0 !important;
+    padding-bottom: var(--spacing-lg);
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        position: sticky;
+        top: 1rem;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+
+    header {
+        padding: 0 calc(var(--card-padding) * 0.8);
+    }
+
+    #main-menu {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+    }
+
+    .menu-social {
+        padding: 0 calc(var(--card-padding) * 0.8);
+    }
+}
+
+/* 顶部 banner：SpaceX 图随机轮播 */
+.profile-banner {
+    position: relative;
+    height: 128px;
+    background: oklch(0.20 0.02 250);
+
+    .profile-banner__bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1.4s ease;
+
+        &.is-active {
+            opacity: 1;
+        }
+    }
+
+    .profile-banner__grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+        background-size: 32px 32px;
+        pointer-events: none;
+    }
+}
+
+/* 头像悬浮在 banner 下缘（Fuwari 标志性结构） */
+.left-sidebar header {
+    .site-avatar {
+        margin-top: -42px;
+
+        .site-logo {
+            border: 4px solid var(--card-background);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+    }
+}
+
+.profile-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px var(--card-padding) 0;
+}
+
+/* Fuwari 风格 chip：主色淡染 */
+.cyber-chip {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 1.2rem;
+    color: var(--card-text-color-secondary);
+    background: oklch(0.55 0.12 250 / 0.12);
+    border: 1px solid oklch(0.70 0.14 250 / 0.25);
+}
+
+/* ---------- 导航按钮：Fuwari btn-regular 风格 ---------- */
+.left-sidebar #main-menu > li > a {
+    border-radius: 0.75rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.left-sidebar #main-menu > li > a:hover {
+    background: oklch(0.70 0.14 250 / 0.10);
+    color: var(--primary);
+}
+
+.left-sidebar #main-menu > li.current > a {
+    background: oklch(0.70 0.14 250 / 0.15);
+    color: var(--primary);
+}
+
+/* 文章列表里的标题悬停用主色 */
+html[data-scheme="dark"] .article-card .article-title a:hover {
+    color: var(--primary);
+}
+
+/* ---------- 卡片阴影：Fuwari 轻投影 ---------- */
 :root {
     --shadow-l1: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.005));
     --shadow-l2: 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
-    --shadow-topbar: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 html[data-scheme="dark"] {
     --shadow-l1: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     --shadow-l2: 0 2px 6px rgba(0, 0, 0, 0.25), 0 10px 32px rgba(0, 0, 0, 0.3);
-    --shadow-topbar: 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* ============================================================
-   核心:顶部横向导航栏布局(复刻 bysansheng.cn)
-   覆盖原主题 grid.scss 的左侧栏 flex-row 布局
-   ============================================================ */
-
-/* 容器:从 flex-row 改为 flex-column(顶部栏 + 主内容纵向堆叠) */
-.main-container.fuwari-topbar {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    align-items: stretch;
-    padding: 0 var(--container-padding);
-    gap: var(--section-separation);
-    padding-top: 0;
-}
-
-/* 顶部导航栏:横向 sticky,磨砂玻璃背景 */
-.topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    width: 100%;
-    background: oklch(1 0 0 / 0.72);
-    backdrop-filter: var(--topbar-blur);
-    -webkit-backdrop-filter: var(--topbar-blur);
-    box-shadow: var(--shadow-topbar);
-    border-bottom: 1px solid oklch(0.85 0.01 250 / 0.5);
-}
-
-html[data-scheme="dark"] .topbar {
-    background: oklch(0.16 0.014 250 / 0.72);
-    border-bottom-color: oklch(0.30 0.015 250 / 0.6);
-}
-
-/* 导航栏内部:横向 flex,左 brand / 中 nav / 右 actions */
-.topbar__inner {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    max-width: 1280px;
-    margin: 0 auto;
-    min-height: var(--topbar-height);
-    padding: 0 8px;
-}
-
-/* 汉堡菜单:仅移动端显示,桌面隐藏 */
-.topbar .hamburger {
-    display: none;
-    padding: 0;
-    margin-right: 4px;
-}
-
-/* 左侧 brand:头像 + 标题横向 */
-.topbar__brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    flex-shrink: 0;
-    margin-right: auto;
-}
-
-.topbar__avatar {
-    margin: 0;
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-
-    .site-logo {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        object-fit: cover;
-        box-shadow: var(--shadow-l1);
-    }
-}
-
-.topbar__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-    line-height: 1.2;
-}
-
-.topbar__title {
-    font-size: 1.05rem;
-    font-weight: 500;
-    color: var(--card-text-color-main);
-}
-
-.topbar__subtitle {
-    font-size: 0.75rem;
-    color: var(--card-text-color-tertiary);
-}
-
-/* 中间:横向主菜单 */
-.topbar__nav {
-    flex-shrink: 0;
-}
-
-.menu--horizontal {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 4px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    & > li > a {
-        display: inline-flex;
-        align-items: center;
-        padding: 8px 14px;
-        border-radius: var(--radius-pill);
-        font-size: 0.9rem;
-        color: var(--card-text-color-secondary);
-        text-decoration: none;
-        transition: background 0.2s ease, color 0.2s ease;
-        white-space: nowrap;
-    }
-
-    & > li > a:hover {
-        background: oklch(0.70 0.14 250 / 0.10);
-        color: var(--primary);
-    }
-
-    & > li.current > a {
-        background: oklch(0.70 0.14 250 / 0.15);
-        color: var(--primary);
-        font-weight: 500;
-    }
-}
-
-/* 右侧 actions:社交 + 深色切换 */
-.topbar__actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-shrink: 0;
-    margin-left: 4px;
-}
-
-.menu-social--horizontal {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-
-    & > li > a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        color: var(--card-text-color-secondary);
-        transition: background 0.2s ease, color 0.2s ease;
-
-        &:hover {
-            background: oklch(0.70 0.14 250 / 0.10);
-            color: var(--primary);
-        }
-    }
-}
-
-/* 深色模式切换按钮 */
-#dark-mode-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: none;
-    background: transparent;
-    color: var(--card-text-color-secondary);
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-    padding: 0;
-
-    &:hover {
-        background: oklch(0.70 0.14 250 / 0.10);
-        color: var(--primary);
-    }
-
-    .icon-tabler-toggle-right {
-        display: none;
-    }
-}
-
-html[data-scheme="dark"] #dark-mode-toggle {
-    color: var(--primary);
-
-    .icon-tabler-toggle-left {
-        display: none;
-    }
-    .icon-tabler-toggle-right {
-        display: inline-block;
-    }
-}
-
-/* 屏幕阅读器专用 */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* ---------- 主内容区:居中限宽(复刻原网站单列居中) ---------- */
-.main-container.fuwari-topbar > .main {
-    width: 100%;
-    max-width: var(--content-max-width);
-    margin: 0 auto;
-    order: 0;
-    padding-top: var(--main-top-padding);
-}
-
-/* ============================================================
-   响应式:移动端汉堡菜单收起导航(复刻原网站响应式行为)
-   兼容主题 menu.ts 的 slideToggle 机制(切换 body.show-menu + #main-menu.show)
-   ============================================================ */
-@media (max-width: 768px) {
-    .topbar .hamburger {
-        display: inline-flex;
-    }
-
-    /* 移动端:导航菜单默认隐藏,由 menu.ts 的 .show 类控制展开 */
-    .topbar__nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: oklch(1 0 0 / 0.92);
-        backdrop-filter: var(--topbar-blur);
-        -webkit-backdrop-filter: var(--topbar-blur);
-        box-shadow: var(--shadow-l2);
-        border-bottom: 1px solid var(--card-separator-color);
-        display: none;
-        z-index: 99;
-    }
-
-    html[data-scheme="dark"] .topbar__nav {
-        background: oklch(0.16 0.014 250 / 0.92);
-    }
-
-    /* menu.ts slideDown 会给 #main-menu 加 .show 类 */
-    .topbar__nav.show {
-        display: block;
-    }
-
-    .menu--horizontal {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 8px 16px;
-        gap: 2px;
-
-        & > li > a {
-            padding: 12px 14px;
-            width: 100%;
-            justify-content: flex-start;
-        }
-    }
-
-    /* 移动端副标题隐藏,节省空间 */
-    .topbar__subtitle {
-        display: none;
-    }
-
-    /* 移动端主内容全宽 */
-    .main-container.fuwari-topbar > .main {
-        max-width: 100%;
-    }
-}
-
-/* ============================================================
-   文章卡片:Fuwari 风格圆角卡片(保留并适配顶部栏布局)
-   ============================================================ */
-.article-list .article-card,
-.article-list--compact .article-card {
-    border-radius: var(--radius-large);
-    overflow: hidden;
-    box-shadow: var(--shadow-l2);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.article-list .article-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 14px 36px rgba(0, 0, 0, 0.08);
-}
-
-/* 文章标题悬停主色 */
-html[data-scheme="dark"] .article-card .article-title a:hover {
-    color: var(--primary);
-}
-
-/* ============================================================
-   相册网格(保留)
-   ============================================================ */
+/* ---------- 相册网格（保留） ---------- */
 .cyber-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
