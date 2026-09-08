@@ -1,183 +1,178 @@
 /* ============================================================
-   Cyber × Sci-Fi × 2D 自定义样式（项目级，覆盖主题默认值）
-   赛博朋克霓虹基调 + 星际科幻氛围 + 相册网格
+   Fuwari 风格布局复刻 × 赛博科幻氛围
+   设计变量参照 Fuwari 开源主题（MIT, saicaca/fuwari）:
+   --radius-large: 1rem; oklch 色彩体系, 默认色相 250
    ============================================================ */
 
 :root {
-    --cyber-cyan: #22d3ee;
-    --cyber-magenta: #f472b6;
-    --cyber-purple: #a78bfa;
-    --cyber-neon-border: rgba(34, 211, 238, 0.22);
+    /* Fuwari 设计令牌 */
+    --radius-large: 1rem;
+    --primary: oklch(0.70 0.14 250);
+    --page-bg: oklch(0.95 0.01 250);
+    --deep-text: oklch(0.25 0.02 250);
+
+    /* 映射到 Stack 的变量体系 */
+    --card-border-radius: var(--radius-large);
+    --body-background: var(--page-bg);
+    --accent-color: var(--primary);
+    --accent-color-darker: oklch(0.55 0.14 250);
+    --accent-color-text: #ffffff;
+    --cyber-cyan: oklch(0.75 0.12 220);
+    --cyber-magenta: oklch(0.70 0.16 340);
 }
 
-/* ---------- 深色主题：太空霓虹基调 ---------- */
-:root {
-    &[data-scheme="dark"] {
-        --body-background: #07080f;
-        --card-background: rgba(17, 20, 34, 0.9);
-        --card-text-color-main: rgba(235, 240, 255, 0.92);
-        --card-text-color-secondary: rgba(190, 200, 230, 0.68);
-        --card-text-color-tertiary: rgba(160, 170, 200, 0.5);
-        --accent-color: #22d3ee;
-        --accent-color-darker: #0ea5c9;
-        --accent-color-text: #04121a;
-        --card-separator-color: rgba(120, 140, 200, 0.14);
-        --code-background-color: rgba(8, 12, 24, 0.92);
-        --shadow-l1: 0 0 0 1px rgba(90, 130, 220, 0.08), 0 6px 24px rgba(0, 0, 0, 0.5);
-        --shadow-l2: 0 0 0 1px rgba(90, 130, 220, 0.10), 0 14px 48px rgba(0, 0, 0, 0.55);
-    }
+html[data-scheme="dark"] {
+    --primary: oklch(0.75 0.14 250);
+    --page-bg: oklch(0.16 0.014 250);
+    --card-background: oklch(0.23 0.015 250);
+    --card-background-selected: oklch(0.28 0.02 250);
+    --card-text-color-main: rgba(255, 255, 255, 0.9);
+    --card-text-color-secondary: rgba(255, 255, 255, 0.68);
+    --card-text-color-tertiary: rgba(255, 255, 255, 0.48);
+    --card-separator-color: rgba(255, 255, 255, 0.08);
+    --accent-color: var(--primary);
+    --accent-color-darker: oklch(0.65 0.14 250);
+    --accent-color-text: oklch(0.16 0.014 250);
+    --code-background-color: oklch(0.17 0.015 250);
+    --body-background: var(--page-bg);
 }
 
-/* ---------- 星云背景（深色） ---------- */
+/* ---------- 页面背景：Fuwari 平涂 + 轻微星云氛围 ---------- */
 html[data-scheme="dark"] body {
     background-image:
-        radial-gradient(ellipse 80% 50% at 15% -10%, rgba(56, 130, 246, 0.14), transparent),
-        radial-gradient(ellipse 60% 40% at 90% 5%, rgba(168, 85, 247, 0.12), transparent),
-        radial-gradient(ellipse 70% 45% at 50% 115%, rgba(34, 211, 238, 0.10), transparent);
+        radial-gradient(ellipse 70% 45% at 15% -8%, oklch(0.35 0.06 250 / 0.35), transparent),
+        radial-gradient(ellipse 55% 40% at 90% 0%, oklch(0.35 0.05 300 / 0.25), transparent);
     background-attachment: fixed;
 }
 
-html[data-scheme="dark"] .card-base {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-/* 卡片悬停：霓虹描边 */
-html[data-scheme="dark"] .card-base {
-    transition: box-shadow 0.35s ease, border-color 0.35s ease;
-}
-html[data-scheme="dark"] .article-card:hover {
-    box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.35), 0 0 28px rgba(34, 211, 238, 0.12), 0 14px 48px rgba(0, 0, 0, 0.55);
-}
-
-/* ---------- Hero 横幅 ---------- */
-.cyber-hero {
-    position: relative;
-    border-radius: var(--card-border-radius);
+/* ---------- 左侧个人卡片：Fuwari 核心结构 ---------- */
+.left-sidebar {
+    background: var(--card-background);
+    border-radius: var(--radius-large);
     overflow: hidden;
-    aspect-ratio: 21 / 8;
-    margin-bottom: var(--section-separation);
-    border: 1px solid var(--cyber-neon-border);
-    box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(34, 211, 238, 0.12),
-        0 18px 60px rgba(0, 0, 0, 0.5);
-    isolation: isolate;
-}
+    box-shadow: var(--shadow-l2);
+    padding-top: 0 !important;
+    padding-bottom: var(--spacing-lg);
+    scrollbar-width: none;
 
-.cyber-hero__bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transform: scale(1.04);
-    transition: opacity 1.4s ease, transform 8s linear;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
-    &.is-active {
-        opacity: 1;
-        transform: scale(1);
+    @media (min-width: 768px) {
+        position: sticky;
+        top: 1rem;
+        max-height: calc(100vh - 2rem);
+        overflow-y: auto;
+    }
+
+    header {
+        padding: 0 calc(var(--card-padding) * 0.8);
+    }
+
+    #main-menu {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+    }
+
+    .menu-social {
+        padding: 0 calc(var(--card-padding) * 0.8);
     }
 }
 
-.cyber-hero__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(7, 8, 15, 0.05) 30%, rgba(7, 8, 15, 0.78) 100%);
+/* 顶部 banner：SpaceX 图随机轮播 */
+.profile-banner {
+    position: relative;
+    height: 128px;
+    background: oklch(0.20 0.02 250);
+
+    .profile-banner__bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 1.4s ease;
+
+        &.is-active {
+            opacity: 1;
+        }
+    }
+
+    .profile-banner__grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+        background-size: 32px 32px;
+        pointer-events: none;
+    }
 }
 
-.cyber-hero__grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(34, 211, 238, 0.09) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(34, 211, 238, 0.09) 1px, transparent 1px);
-    background-size: 44px 44px;
-    -webkit-mask-image: linear-gradient(180deg, transparent 25%, #000 100%);
-    mask-image: linear-gradient(180deg, transparent 25%, #000 100%);
-    pointer-events: none;
+/* 头像悬浮在 banner 下缘（Fuwari 标志性结构） */
+.left-sidebar header {
+    .site-avatar {
+        margin-top: -42px;
+
+        .site-logo {
+            border: 4px solid var(--card-background);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+    }
 }
 
-.cyber-hero__content {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 24px 34px;
-}
-
-.cyber-hero__kicker {
-    margin: 0 0 8px;
-    font-family: var(--code-font-family);
-    font-size: 1.3rem;
-    letter-spacing: 3px;
-    color: var(--cyber-cyan);
-    text-shadow: 0 0 14px rgba(34, 211, 238, 0.8);
-}
-
-.cyber-hero__title {
-    margin: 0 0 8px;
-    font-size: 4rem;
-    font-weight: 500;
-    color: #ffffff;
-    text-shadow:
-        0 0 22px rgba(94, 234, 212, 0.55),
-        0 2px 10px rgba(0, 0, 0, 0.65);
-}
-
-.cyber-hero__subtitle {
-    margin: 0 0 12px;
-    font-size: 1.7rem;
-    color: rgba(230, 238, 255, 0.88);
-}
-
-.cyber-hero__tags {
+.profile-chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
+    padding: 8px var(--card-padding) 0;
 }
 
+/* Fuwari 风格 chip：主色淡染 */
 .cyber-chip {
     display: inline-block;
     padding: 3px 12px;
     border-radius: 999px;
-    font-size: 1.25rem;
-    color: rgba(235, 245, 255, 0.92);
-    background: rgba(10, 16, 30, 0.55);
-    border: 1px solid rgba(34, 211, 238, 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-
-    &--pink {
-        border-color: rgba(244, 114, 182, 0.45);
-        box-shadow: 0 0 12px rgba(244, 114, 182, 0.18);
-    }
+    font-size: 1.2rem;
+    color: var(--card-text-color-secondary);
+    background: oklch(0.55 0.12 250 / 0.12);
+    border: 1px solid oklch(0.70 0.14 250 / 0.25);
 }
 
-@media (max-width: 768px) {
-    .cyber-hero {
-        aspect-ratio: 16 / 10;
-    }
-
-    .cyber-hero__content {
-        padding: 16px 20px;
-    }
-
-    .cyber-hero__title {
-        font-size: 2.6rem;
-    }
-
-    .cyber-hero__subtitle {
-        font-size: 1.4rem;
-    }
-
-    .cyber-hero__kicker {
-        font-size: 1.1rem;
-        letter-spacing: 2px;
-    }
+/* ---------- 导航按钮：Fuwari btn-regular 风格 ---------- */
+.left-sidebar #main-menu > li > a {
+    border-radius: 0.75rem;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* ---------- 相册网格 ---------- */
+.left-sidebar #main-menu > li > a:hover {
+    background: oklch(0.70 0.14 250 / 0.10);
+    color: var(--primary);
+}
+
+.left-sidebar #main-menu > li.current > a {
+    background: oklch(0.70 0.14 250 / 0.15);
+    color: var(--primary);
+}
+
+/* 文章列表里的标题悬停用主色 */
+html[data-scheme="dark"] .article-card .article-title a:hover {
+    color: var(--primary);
+}
+
+/* ---------- 卡片阴影：Fuwari 轻投影 ---------- */
+:root {
+    --shadow-l1: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.005));
+    --shadow-l2: 0 2px 4px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+html[data-scheme="dark"] {
+    --shadow-l1: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    --shadow-l2: 0 2px 6px rgba(0, 0, 0, 0.25), 0 10px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- 相册网格（保留） ---------- */
 .cyber-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -186,10 +181,9 @@ html[data-scheme="dark"] .article-card:hover {
 
     &__item {
         margin: 0;
-        border-radius: var(--card-border-radius);
+        border-radius: var(--radius-large);
         overflow: hidden;
-        border: 1px solid rgba(120, 140, 200, 0.16);
-        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--card-separator-color, rgba(0, 0, 0, 0.06));
 
         img {
             display: block;
@@ -205,10 +199,6 @@ html[data-scheme="dark"] .article-card:hover {
     }
 }
 
-/* ---------- 文章标签霓虹化（深色） ---------- */
-html[data-scheme="dark"] {
-    .article-card .article-title a:hover {
-        color: var(--cyber-cyan);
-        text-shadow: 0 0 16px rgba(34, 211, 238, 0.45);
-    }
+html[data-scheme="dark"] .cyber-gallery__item {
+    border-color: rgba(255, 255, 255, 0.08);
 }

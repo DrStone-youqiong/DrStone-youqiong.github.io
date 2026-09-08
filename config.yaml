@@ -4,7 +4,7 @@ languageCode: "zh-cn"
 locale: "zh-cn"                # Hugo v0.158+ 用 locale，不加会有 languageCode 弃用警告（仅警告，不影响运行）
 theme: "hugo-theme-stack"
 title: "DrStone 的博客"          # 网站标题
-copyright: "© 2026 DrStone"   # 底部版权
+copyright: "2026 DrStone"    # 底部版权（主题会自动补 © 符号）
 
 # 分页：每页显示几篇文章
 pagination:
@@ -20,6 +20,10 @@ params:
     subtitle: "记录、分享、成长"   # 头像下的一句话简介
     avatar: img/avatar.png       # 头像：直接写字符串路径，对应 assets/img/avatar.png
                                  # （不想用头像就删掉这一行）
+    tags:                        # 侧边栏个性标签
+      - "🚀 SpaceX"
+      - "✦ 2D 美少女"
+      - "📈 量化研究"
 
   # 文章封面等图片处理
   article:
@@ -45,15 +49,33 @@ menu:
         icon: brand-github
 
   main:
-    - identifier: quant-resources
-      name: 量化研究资源
-      url: /quant-resources/
+    - identifier: home
+      name: 主页
+      url: /
+      params:
+        icon: home
       weight: 1
+
+    - identifier: archives
+      name: 归档
+      url: /archives/
+      params:
+        icon: archives
+      weight: 2
 
     - identifier: gallery
       name: 相册
       url: /gallery/
-      weight: 2
+      params:
+        icon: hash
+      weight: 3
+
+    - identifier: quant-resources
+      name: 量化研究资源
+      url: /quant-resources/
+      params:
+        icon: categories
+      weight: 4
 
 # 让文章摘要、代码高亮等更好看
 markup:
